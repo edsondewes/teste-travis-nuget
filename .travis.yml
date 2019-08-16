@@ -1,0 +1,26 @@
+language: csharp
+solution: TesteTravisNuget.sln
+mono: none
+dotnet: 2.2.401
+
+env:
+  global:
+    secure: ips6cMY0x76gYMqfRDlUYU41PcIZc+sj61h0ujRK/CxQviZTMhgzY5hOz2s92odGXeHgaCCNsAoSlybwzFR3DxE60+6Iz2DBlKkRmcIB32OStFUiXfwPTCQKTvw0lYa9fVjPWLssXH9I6W0dKQD+lrxhWAD7qlkXxC7EN0jqRMIJdXJrdxbsaLlZKN6D4dKrMVFrLtlsVcRQFdi1Oad1NiL7NxFIO35VC2CmPXgbVqFdSeoVcPWWa1/YmS3KNL2BMik/Jc9IDcdUgAMRVOLo5BML4jsnPrLUfePxLO5/8Xbia9kl3p+1of0r5m+6kazW01HrdycZUu7snDdOfBGNL9R2HwOTorXDCBtw/X1+wiVqnmi0KJMYpz6LpGXydCPzAvCYOknrplB4qIWhf1nhypw3I3yaPbgzdEm72/bmF8G+Al1hsnPJDLTE6WTrV8Eikw1BZP64U2M9G8RrL9en/aKn5Rpia3cIlZAr6CxwZ9eE2yWRX6BgZ5nqhFliwt3xROrChm9fkM6Bp3pl1qAERG88qFqLLwBDeS7a9kh+oJv2GXLeR5x868NzhtUbk9n1AGmeLN+iTRBqai3fNLDxFO+xJrqfvkFk0J56pDKcobqlStlYqG+BUaqjYiVDdTvtkUgkQBVp39YB8/pLcrCmMrMuU82WgUM6f5dSoSp/PAM=
+
+install:
+- dotnet restore
+
+script:
+- dotnet build -c Release /p:VersionSuffix=preview$TRAVIS_BUILD_NUMBER
+
+deploy:
+- dotnet nuget push -s https://api.nuget.org/v3/index.json -k $NUGET_KEY ./src/TesteTravisNuget.LibSemImportancia/bin/Release/TesteTravisNuget.LibSemImportancia.1.0.0-preview$TRAVIS_BUILD_NUMBER.nupkg
+
+branches:
+  only:
+  - master
+
+notifications:
+  email:
+    on_success: never
+    on_failure: always
