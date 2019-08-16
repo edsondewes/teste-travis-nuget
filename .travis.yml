@@ -14,11 +14,11 @@ script:
 - dotnet build -c Release /p:VersionSuffix=preview$TRAVIS_BUILD_NUMBER
 
 deploy:
-- dotnet nuget push -s https://api.nuget.org/v3/index.json -k $NUGET_KEY ./src/TesteTravisNuget.LibSemImportancia/bin/Release/TesteTravisNuget.LibSemImportancia.1.0.0-preview$TRAVIS_BUILD_NUMBER.nupkg
-
-branches:
-  only:
-  - master
+  provider: script
+  script: dotnet nuget push -s https://api.nuget.org/v3/index.json -k $NUGET_KEY ./src/TesteTravisNuget.LibSemImportancia/bin/Release/TesteTravisNuget.LibSemImportancia.1.0.0-preview$TRAVIS_BUILD_NUMBER.nupkg
+  skip_cleanup: true
+  on:
+    branch: master
 
 notifications:
   email:
