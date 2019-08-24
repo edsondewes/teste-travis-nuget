@@ -13,7 +13,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Setup dotnet
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: '2.2.401'
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '2.2.401'
     - run: dotnet build -c Release
